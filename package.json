@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "../17Sqn_LessonPlanDatabase/frontend/node_modules/.bin/vue-cli-service serve",
-    "build": "../17Sqn_LessonPlanDatabase/frontend/node_modules/.bin/vue-cli-service build",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "lint": "../17Sqn_LessonPlanDatabase/frontend/node_modules/.bin/vue-cli-service lint"
   },
   "dependencies": {

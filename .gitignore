@@ -1,6 +1,5 @@
 .DS_Store
-../17Sqn_LessonPlanDatabase/frontend/node_modules
-/dist
+node_modules
 
 
 # local env files

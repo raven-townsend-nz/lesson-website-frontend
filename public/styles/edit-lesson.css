@@ -1,0 +1,104 @@
+.modal-heading {
+    z-index: 1;
+}
+
+.full-title-inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.v-text-field--outlined .v-label--active {
+    transform: translateX(-18px) translateY(-28px) scale(0.75);
+}
+
+.full-title-input {
+    max-width: 20%;
+}
+.full-title-input-title {
+    max-width: 30%;
+}
+
+.view-lesson-modal-details-wrapper {
+    margin-block: 3vh;
+}
+
+.view-lesson-modal-edit-details {
+    max-width: 30%; margin-inline-start: 1vw
+}
+
+.accordion-header {
+    color: #1f4685; text-align: left
+}
+
+.font-paragraph {
+    font-size: 0.875rem;
+}
+
+.instructor-notes-textarea {
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.save-changes-wrapper {
+    width: 100%; text-align: center; flex-direction: column
+}
+
+#save-changes-enabled {
+    background:#1f4685; color: white;
+}
+
+#save-changes-disabled {
+    background:#868686; color: #4e4e4e;
+}
+
+.edit-lesson-folder {
+    display: flex; flex-direction: row; align-items: center
+}
+
+#new-folder-button {
+    background-color: rgba(31, 70, 133, 0.1);
+}
+
+.folder-icon {
+    padding-inline: 0.3vw;
+}
+
+.create-folder-text-field {
+    width: 10vw; padding: 0 0 0 37px;
+}
+
+.edit-lesson-details-title {
+    width: 12%;
+}
+
+@media only screen and (max-width: 1367px) {
+    .full-title-inputs {
+        flex-direction: column;
+    }
+
+    .full-title-input, .full-title-input-title {
+        max-width: 100%;
+    }
+
+    .view-lesson-modal-edit-details {
+        max-width: 50%;
+    }
+
+    .edit-lesson-details-title {
+        width: 20%;
+    }
+}
+
+.expansion-header-reduced-padding {
+    padding: 16px 24px 0px !important;
+}
+
+.v-expansion-panel-header--active {
+    padding: 16px 24px 0px !important;
+}
+
+.v-expansion-panel-content__wrap {
+    padding-top: 0px !important;
+    padding-bottom: 10px !important;
+}

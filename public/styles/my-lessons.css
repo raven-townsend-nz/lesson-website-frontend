@@ -1,0 +1,54 @@
+.my-lessons-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    overflow: auto;
+}
+
+.my-lessons-table-wrapper {
+    width: 98vw;
+    max-height: 100vh;
+    text-align: left;
+    z-index: 0;
+}
+
+.v-data-table {
+    max-height: 89vh;
+    overflow-y: auto;
+}
+
+.lesson-btn .slide-fade-enter-active {
+    transition: all .3s ease;
+}
+.lesson-btn .slide-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.lesson-btn .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateX(-10px);
+    opacity: 0;
+}
+
+.primary-button {
+    background-color: #1976D2 !important;
+    color: white !important;
+}
+
+.flex-center-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex-center-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.filter-wrapper {
+    box-shadow: 2px 0px 6px 0px rgba(0, 0, 0, 0.6) !important;
+}
+
+.filter-titles {
+    margin-block: 0.5vh;
+}

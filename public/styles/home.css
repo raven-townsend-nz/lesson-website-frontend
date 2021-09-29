@@ -1,0 +1,12 @@
+.home-wrapper {
+    min-width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    background: whitesmoke;
+    overflow: hidden;
+}
+
+.has-margin-left {
+    /*Width of navbar*/
+    margin-left: 55px;
+}

@@ -1,0 +1,42 @@
+@font-face{
+    font-family:Lesson Font;
+    src: url(../fonts/GothamProMedium.ttf)
+}
+
+.fancy-background {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../src/assets/login-background.jpg") ;
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center !important;
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+    align-content: center !important;
+    align-items: center !important;
+}
+
+
+.not-found-card {
+    padding: 20px;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center !important;
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+    align-content: center !important;
+    align-items: center !important;
+    border-radius: 20px !important;
+}
+
+.title-blue {
+    font-size: 2rem !important;
+    color: #1f4685;
+    padding: 2vh 2vh 3vh 2vh !important;
+}
+
+.wider-img {
+    width: 100%;
+}

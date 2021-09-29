@@ -1,0 +1,92 @@
+<template>
+  <v-dialog v-model="newFileDialog" max-width="30vw">
+    <v-card>
+      <v-card-title style="background-color: #1f4685; color: white; padding-block: 1vh">
+        <span class="text-h5">Upload Files</span>
+        <v-spacer></v-spacer>
+        <v-btn class="modal-close-button" icon dark v-on:click="newFileDialog = false"><v-icon>mdi-close</v-icon></v-btn>
+      </v-card-title>
+      <v-card-text>
+        <v-file-input
+            color="#1f4685"
+            small-chips
+            clearable
+            multiple
+            truncate-length="10"
+            accept=".doc,.docx,.pdf,.ppt,.pptx"
+            label="File Input"
+            v-model="inputFiles"
+        ></v-file-input>
+      </v-card-text>
+      <v-card-actions style="justify-content: center">
+        <v-btn
+            text
+            style="background:#1f4685; color: white;"
+            @click="uploadFiles()"
+        >
+          <v-icon left>mdi-upload</v-icon>
+          Upload
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+import api from "@/api/api";
+
+export default {
+  name: "NewFile",
+  data() {
+    return {
+      inputFiles: [],
+      group: null,
+      newFileDialog: false,
+      lessonId: null,
+      allocationId: null,
+      mode: null,
+    }
+  },
+  methods: {
+    openNewLessonFile(group, lessonId) {
+      this.mode = "lesson";
+      this.group = group;
+      this.lessonId = lessonId;
+      this.newFileDialog = true;
+    },
+
+    openNewAllocationFile(allocationId) {
+      this.mode = "allocation";
+      this.allocationId = allocationId;
+      this.newFileDialog = true;
+    },
+
+    uploadFiles() {
+      if (this.mode === "lesson") {
+        for (let file of this.inputFiles) {
+          api.storageApi.uploadToArchive(file, file.name, this.group, this.lessonId)
+              .then(() => {
+                this.inputFiles = [];
+                this.$emit('getFiles');
+                this.newFileDialog = false;
+              });
+        }
+      } else {
+        for (let file of this.inputFiles) {
+          api.storageApi.uploadToAllocation(file, file.name, this.allocationId)
+              .then(() => {
+                this.inputFiles = [];
+                this.$emit('getFiles');
+                this.newFileDialog = false;
+              });
+        }
+      }
+
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

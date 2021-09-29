@@ -1,0 +1,33 @@
+@font-face{
+    font-family:Lesson Font;
+    src: url(../fonts/GothamProMedium.ttf)
+}
+
+.training-program-wrapper {
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 30px !important;
+    overflow: auto;
+}
+
+.update-links-card {
+    background: rgb(18 71 121) !important;
+}
+
+.form {
+    padding: 5vh;
+    height: 100%;
+    font-family: "Lesson Font";
+    color: white;
+    text-align: center;
+}
+
+.normal-word-break {
+     word-break: keep-all;
+ }
+
+.update-links-header {
+    font-size: 3rem !important;
+    color: white;
+    padding: 2vh 2vh 3vh 2vh !important;
+}

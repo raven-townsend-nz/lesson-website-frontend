@@ -1,0 +1,52 @@
+@font-face{
+    font-family:Lesson Font;
+    src: url(../fonts/GothamProMedium.ttf)
+}
+
+.edit-profile-dialog {
+    border-radius: 20px !important;
+    box-shadow: 9px 3px 5px 2px rgba(0, 0, 0, 0.36) !important;
+    background-color: #124779;
+}
+
+.edit-profile-card {
+    background: rgb(18 71 121) !important;
+}
+
+.save-button {
+    margin-bottom: 30px;
+}
+
+.edit-profile-header {
+    font-size: 3rem !important;
+    color: white;
+    padding: 2vh 2vh 3vh 2vh !important;
+}
+
+.centre {
+    text-align: center !important;
+    width: 100%;
+}
+
+.snackbar {
+    font-family: "Lesson Font";
+}
+
+.auto-width {
+    width: max-content;
+}
+
+.edit-profile-card.slide-fade-enter-active {
+    transition: all .15s ease;
+}
+.edit-profile-card.slide-fade-leave-active {
+    transition: all .15s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.edit-profile-card.slide-fade-enter  {
+    transform: translateX(0px);
+    opacity: 0;
+}
+.edit-profile-card.slide-fade-leave-to {
+    transform: translateX(0px);
+    opacity: 0;
+}

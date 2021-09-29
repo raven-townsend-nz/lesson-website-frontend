@@ -1,0 +1,147 @@
+
+
+/* Login && Register */
+
+.full-wrapper {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../src/assets/login-background.jpg") ;
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+}
+
+/*Slide transition*/
+.slide-fade-enter-active {
+    transition: all .2s ease;
+}
+.slide-fade-leave-active {
+    transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter  {
+    transform: translateX(20px);
+    opacity: 0;
+}
+
+.slide-fade-leave-to {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.form-wrapper {
+    display: inline-flex;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0);
+
+    margin: auto;
+    border-radius: 5%;
+
+    min-width: 70vw;
+    max-width: 70vw;
+    min-height: 75vh;
+
+}
+
+.left-col {
+    background: rgb(245, 245, 245);
+    width: 60%;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+    box-shadow: 9px 3px 5px 2px rgba(0, 0, 0, 0.36)
+
+}
+
+.login-logo {
+    width: 35vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 7vh;
+
+}
+
+.right-col {
+    background: rgb(18 71 121);
+    width: 40%;
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+    box-shadow: 9px 3px 5px 2px rgba(0, 0, 0, 0.36)
+}
+
+
+
+.form {
+    padding: 5vh;
+    height: 100%;
+    font-family: "Lesson Font";
+    color: white;
+    text-align: center;
+}
+
+.login-form-contents {
+    padding-top: 5vh;
+}
+
+/* Error message color*/
+.v-messages__message {
+    color: #f59c88;
+    text-align: center;
+}
+
+.login-register-header {
+    padding: 3vh;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.double {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.double-width {
+    max-width: 49%;
+    min-width: 49%;
+}
+
+/* Horizontal Line*/
+.hr-sect {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: white;
+    margin: 8px 0px;
+}
+.hr-sect:before,
+.hr-sect:after {
+    content: "";
+    flex-grow: 1;
+    background: whitesmoke;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 8px;
+}
+
+/* For mobile */
+@media only screen and (max-width: 1367px) {
+    .left-col {
+        width: 0;
+    }
+
+    .right-col {
+        width: 100%;
+    }
+
+    .double {
+        display: inherit;
+        justify-content: inherit;
+    }
+
+    .double-width {
+        max-width: inherit;
+        min-width: 100%;
+    }
+}

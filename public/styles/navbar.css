@@ -1,0 +1,45 @@
+.navbar-wrapper {
+    height: 100vh;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    z-index: 1;
+}
+
+.navbar-wrapper {
+    box-shadow: 2px 0px 6px 0px rgba(0, 0, 0, 0.6) !important;
+}
+
+.back-burger {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+.navbar-content {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    flex-grow: 1;
+}
+
+.navbar-buttons {
+    flex-grow: 1;
+}
+
+.navbar-footer {
+    margin: 2vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-icon {
+    padding-right: 1vw;
+}
+.v-navigation-drawer__content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+
+}

@@ -1,0 +1,156 @@
+.view-lesson-title {
+    font-size: 2.5rem !important;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+    padding-inline-start: 4vw;
+}
+
+.view-create-allocation-title {
+    font-size: 2.5rem !important;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+.view-lesson-modal-h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    padding-block: 3vh;
+}
+
+.view-lesson-modal-h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #102951;
+    margin-block: 1.5vh;
+}
+
+.modal-close-button {
+    float: end !important;
+    margin-block: 1vh;
+}
+
+.save-feedback-button {
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+}
+
+.save-instructor-notes-button {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}
+
+.save-notes-button {
+    float: right;
+    margin-block: 1vh;
+}
+
+.theme--dark.v-btn.v-btn--disabled.v-btn--has-bg {
+    background-color: #1f4685 !important;
+    opacity: 0.7 !important;
+}
+
+.view-lesson-modal-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-block: 1vh;
+    height: 2.5rem;
+}
+
+.view-lesson-cards-wrapper {
+    display: flex; flex-direction: row; justify-content: space-between;
+    margin-block: 1vh;
+
+}
+
+.folder-name {
+    margin-bottom: 0 !important;
+}
+
+.scope-references-card {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
+    width: 49%;
+}
+
+.view-lesson-card-title {
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12) ;
+    color: white;
+    background-color: #1f4685;
+    padding-block: 0.5vh;
+    font-size: 1rem;
+}
+
+.view-lesson-card-text {
+    color: black !important;
+    margin-block: 1vh;
+    max-height: calc(1.375rem * 5);
+    overflow: auto;
+}
+
+@media only screen and (max-width: 1367px) {
+    .view-lesson-cards-wrapper {
+        flex-direction: column;
+    }
+
+    .scope-references-card {
+        width: 100%;
+    }
+
+    .view-lesson-modal-h1 {
+        font-size: 1rem;
+    }
+
+}
+
+.no-vertical-padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.details-table {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.details-table tr:hover {
+    background-color: transparent !important;
+}
+
+.expansion-header-reduced-padding {
+    padding: 16px 24px 0px !important;
+}
+
+.v-expansion-panel-header--active {
+    padding: 16px 24px 0px !important;
+}
+
+.v-expansion-panel-content__wrap {
+    padding-top: 0px !important;
+    padding-bottom: 10px !important;
+}
+
+.other-instructor-cell {
+    padding-right: 0 !important;
+    max-width: fit-content !important;
+}
+
+.instructor-table-colors {
+    background-color: #1f4685;
+    color: white;
+}
+
+.instructor-card {
+    margin-top: 15px !important;
+}

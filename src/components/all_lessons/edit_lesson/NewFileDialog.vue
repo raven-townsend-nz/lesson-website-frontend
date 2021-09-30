@@ -28,6 +28,13 @@
           Upload
         </v-btn>
       </v-card-actions>
+
+      <v-slide-x-transition>
+        <v-alert type="error" v-if="error" >
+          {{errorMessage}}
+        </v-alert>
+      </v-slide-x-transition>
+
     </v-card>
   </v-dialog>
 </template>
@@ -45,6 +52,9 @@ export default {
       lessonId: null,
       allocationId: null,
       mode: null,
+
+      error: false,
+      errorMessage: "Something went wrong",
     }
   },
   methods: {
@@ -61,27 +71,42 @@ export default {
       this.newFileDialog = true;
     },
 
-    uploadFiles() {
-      if (this.mode === "lesson") {
-        for (let file of this.inputFiles) {
-          api.storageApi.uploadToArchive(file, file.name, this.group, this.lessonId)
-              .then(() => {
-                this.inputFiles = [];
-                this.$emit('getFiles');
-                this.newFileDialog = false;
-              });
-        }
+    uploadErrorMessage(err) {
+      if(err.response.data.length > 0) {
+        this.errorMessage = err.response.data;
       } else {
-        for (let file of this.inputFiles) {
-          api.storageApi.uploadToAllocation(file, file.name, this.allocationId)
-              .then(() => {
-                this.inputFiles = [];
-                this.$emit('getFiles');
-                this.newFileDialog = false;
-              });
-        }
+        this.errorMessage = "Something went wrong";
       }
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 3000);
+    },
 
+    uploadFiles() {
+      try{
+        if (this.mode === "lesson") {
+          for (let file of this.inputFiles) {
+            api.storageApi.uploadToArchive(file, file.name, this.group, this.lessonId)
+                .then(() => {
+                  this.inputFiles = [];
+                  this.$emit('getFiles');
+                  this.newFileDialog = false;
+                });
+          }
+        } else {
+          for (let file of this.inputFiles) {
+            api.storageApi.uploadToAllocation(file, file.name, this.allocationId)
+                .then(() => {
+                  this.inputFiles = [];
+                  this.$emit('getFiles');
+                  this.newFileDialog = false;
+                });
+          }
+        }
+      } catch (err) {
+        this.uploadErrorMessage(err);
+      }
     }
   }
 }

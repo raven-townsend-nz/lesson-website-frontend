@@ -282,9 +282,16 @@ export default {
       let lessonDate = new Date(allocation.date);
       lessonDate = `${lessonDate.getDate()}/${lessonDate.getMonth() + 1}/${lessonDate.getFullYear()}`;
 
-      let dueDate = new Date(allocation.date);
-      dueDate.setDate(dueDate.getDate() - process.env.VUE_APP_LESSON_PLAN_DUE);
-      dueDate = `${dueDate.getDate()}/${dueDate.getMonth() + 1}/${dueDate.getFullYear()}`;
+      let dueDate;
+      if (allocation.lessonPlanRequired) {
+        dueDate = new Date(allocation.date);
+        dueDate.setDate(dueDate.getDate() - process.env.VUE_APP_LESSON_PLAN_DUE);
+        dueDate = `${dueDate.getDate()}/${dueDate.getMonth() + 1}/${dueDate.getFullYear()}`;
+      } else {
+        dueDate = "N/A";
+      }
+
+
 
       if (instructorFullNames.length === 2) {
         allocation.instructors = instructorFullNames.join(" and ");

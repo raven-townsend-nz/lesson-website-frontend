@@ -545,6 +545,7 @@ export default {
         this.dialog = false;
         if (this.selectedLessons.length === 0) {
           this.selectedUsers = [];
+          this.allocationsForSlack = [];
         }
       }
     },

@@ -87,21 +87,38 @@ export default {
       try{
         if (this.mode === "lesson") {
           for (let file of this.inputFiles) {
-            api.storageApi.uploadToArchive(file, file.name, this.group, this.lessonId)
-                .then(() => {
-                  this.inputFiles = [];
-                  this.$emit('getFiles');
-                  this.newFileDialog = false;
-                });
+            if(file.size <= 5e8) {//5e8 = 500mb
+              api.storageApi.uploadToArchive(file, file.name, this.group, this.lessonId)
+                  .then(() => {
+                    this.inputFiles = [];
+                    this.$emit('getFiles');
+                    this.newFileDialog = false;
+                  });
+            } else {
+              this.errorMessage = "File too large. Max file size is 500mb";
+              this.error = true;
+              setTimeout(() => {
+                this.error = false;
+              }, 3000);
+            }
           }
         } else {
           for (let file of this.inputFiles) {
-            api.storageApi.uploadToAllocation(file, file.name, this.allocationId)
-                .then(() => {
-                  this.inputFiles = [];
-                  this.$emit('getFiles');
-                  this.newFileDialog = false;
-                });
+            console.log(file.size);
+            if(file.size <= 5e8) {
+              api.storageApi.uploadToAllocation(file, file.name, this.allocationId)
+                  .then(() => {
+                    this.inputFiles = [];
+                    this.$emit('getFiles');
+                    this.newFileDialog = false;
+                  });
+            } else {
+              this.errorMessage = "File too large. Max file size is 500mb";
+              this.error = true;
+              setTimeout(() => {
+                this.error = false;
+              }, 3000);
+            }
           }
         }
       } catch (err) {

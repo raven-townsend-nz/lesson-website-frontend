@@ -2,7 +2,7 @@
   <div class="full-wrapper">
     <div class="form-wrapper">
       <div class="left-col">
-        <img src="../../assets/logo.png" class="login-logo"/>
+        <img src="../../assets/logo.webp" class="login-logo"/>
       </div>
       <div class="right-col">
         <div class="form">

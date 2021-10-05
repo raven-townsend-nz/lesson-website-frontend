@@ -5,7 +5,7 @@
 .full-wrapper {
     height: 100vh;
     width: 100vw;
-    background-image: url("../../src/assets/login-background.jpg") ;
+    background-image: url("../../src/assets/login-background.webp") ;
     background-repeat: repeat;
     background-size: cover;
     background-position: center center;

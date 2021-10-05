@@ -10,7 +10,7 @@
           <v-toolbar
             color="primary"
             dark
-            src="../../assets/login-background.jpg"
+            src="../../assets/login-background.webp"
           >
             <v-toolbar-title class="view-lesson-title">Allocate Lessons</v-toolbar-title>
           </v-toolbar>

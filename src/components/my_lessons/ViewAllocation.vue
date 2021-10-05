@@ -11,7 +11,7 @@
           <v-toolbar
               color="primary"
               dark
-              src="../../assets/login-background.jpg"
+              src="../../assets/login-background.webp"
           >
             <v-toolbar-title class="view-create-allocation-title">View Lesson Allocation</v-toolbar-title>
             <v-btn class="modal-close-button" icon v-on:click="dialog.value = false"><v-icon>mdi-close</v-icon></v-btn>

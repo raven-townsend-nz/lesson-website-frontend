@@ -88,7 +88,9 @@ export default {
         if (this.mode === "lesson") {
           for (let file of this.inputFiles) {
             if(file.size <= 5e8) {//5e8 = 500mb
-              api.storageApi.uploadToArchive(file, file.name, this.group, this.lessonId)
+              let formData = new FormData();
+              formData.append('file', file);
+              api.storageApi.uploadToArchive(formData)
                   .then(() => {
                     this.inputFiles = [];
                     this.$emit('getFiles');

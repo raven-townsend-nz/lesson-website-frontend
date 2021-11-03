@@ -1,0 +1,586 @@
+openapi: 3.0.0
+info:
+  title: Lesson Website API
+  version: 1.0.0
+tags:
+  - name: blank
+    description: Blank
+  - name: users
+    description: 'Endpoints for registering, logging in, and retrieving/modifying user information.'
+  - name: dgaa
+    description: Endpoints for dgaa actions
+  - name: lessons
+    description: Endpoints for lesson manipulations
+paths:
+  /blankPath:
+    post:
+      tags:
+        - blank
+      summary: Blank
+      description: multi line blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                firstProperty:
+                  type: string
+                  minLength: 1
+                  example: blank
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                properties:
+                  blank:
+                    type: string
+                    minLength: 1
+                    example: blank
+        '500':
+          description: Internal Server Error
+  /lessons:
+    get:
+      tags:
+        - lessons
+      summary: Gets lessons based on filters
+      description: Creates a new lesson
+      parameters:
+        - in: query
+          name: yearLevel
+          description: year level to filter by
+          schema:
+            type: integer
+            minLength: 1
+            example: 1
+        - in: query
+          name: topicCode
+          description: topic code to filer by
+          schema:
+            type: string
+            minLength: 1
+            example: example topic
+        - in: query
+          name: description
+          description: description
+          schema:
+            type: string
+            minLength: 1
+            example: insert description here
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  lessons:
+                    type: array
+                    minLength: 1
+                    example:
+                      - lesson1
+                      - lesson2
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden (client not Admin)
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - lessons
+      summary: Creates a new lesson
+      description: Creates a new lesson
+      parameters:
+        - in: query
+          name: confirm
+          description: Either true or false
+          example: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                lessonCode:
+                  type: string
+                  minLength: 1
+                  example: max4
+                yearLevel:
+                  type: integer
+                  minLength: 1
+                  example: 5
+                lessonNumber:
+                  type: integer
+                  minLength: 1
+                  example: 5
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 30
+                  example: title
+                lessonPlanRequired:
+                  type: boolean
+                  minLength: 1
+                  example: true
+                time:
+                  type: string
+                  minLength: 1
+                  example: x 40 periods?
+                scope:
+                  type: string
+                  minLength: 1
+                  example: scope1, scope2
+                notes:
+                  type: string
+                  minLength: 1
+                  example: these are the notes
+                activities:
+                  type: string
+                  minLength: 1
+                  example: here are some activities
+                references:
+                  type: string
+                  minLength: 1
+                  example: ref1, ref2, ref3
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                properties:
+                  lessonId:
+                    type: integer
+                    example: 4
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden (client not Admin)
+        '500':
+          description: Internal Server Error
+  '/lessons/{id}':
+    parameters:
+      - name: id
+        description: ID of the lesson.
+        in: path
+        required: true
+        schema:
+          type: integer
+          minLength: 1
+          example: 11
+    delete:
+      tags:
+        - lessons
+      summary: Deletes a lesson
+      description: |-
+        Deletes a lesson
+
+      responses:
+        '200':
+          description: Ok
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden (client not Admin)
+        '500':
+          description: Internal Server Error
+    patch:
+      tags:
+        - lessons
+      summary: Patches a lesson
+      description: 'Edits a lesson, should have the same restraints as 365. Cannot edit an event that has already passed. Some lesson fields probably shouldn''t be editable.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                lessonCode:
+                  type: string
+                  minLength: 1
+                  example: max4
+                yearLevel:
+                  type: integer
+                  minLength: 1
+                  example: 5
+                lessonNumber:
+                  type: integer
+                  minLength: 1
+                  example: 5
+                description:
+                  type: string
+                  minLength: 1
+                  maxLength: 30
+                  example: max 30 char
+                lessonPlanRequired:
+                  type: boolean
+                  minLength: 1
+                  example: true
+                time:
+                  type: string
+                  minLength: 1
+                  example: x 40 periods?
+                scope:
+                  type: array
+                  minLength: 1
+                  example:
+                    - scope1
+                    - scope2
+                notes:
+                  type: string
+                  minLength: 1
+                  example: these are the notes
+                activities:
+                  type: string
+                  minLength: 1
+                  example: here are some activities
+                references:
+                  type: array
+                  minLength: 1
+                  example:
+                    - ref1
+                    - ref2
+                    - ref3
+      responses:
+        '200':
+          description: Ok
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden (client not Admin)
+        '500':
+          description: Internal Server Error
+  '/dgaa/isAdmin/{id}':
+    parameters:
+      - name: id
+        description: ID of the user.
+        in: path
+        required: true
+        schema:
+          type: integer
+          minLength: 1
+          example: 11
+    get:
+      tags:
+        - dgaa
+      summary: Checks if a user is an admin
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  isAdmin:
+                    type: boolean
+                    minLength: 1
+                    example: true
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden (client not DGAA)
+        '500':
+          description: Internal Server Error
+  /dgaa/setAdmin:
+    post:
+      tags:
+        - dgaa
+      summary: Sets a user's admin privilieges
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                userId:
+                  type: integer
+                  minLength: 1
+                  example: 11
+                status:
+                  type: boolean
+                  minLength: 1
+                  example: false
+      responses:
+        '200':
+          description: Ok
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden (client not DGAA)
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  '/users':
+    get:
+      tags:
+        - users
+      summary: Retrieve information about all users.
+      description: 'Admin only endpoint to retrieve all users.'
+      security:
+        - {}
+        - UserToken: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    userId:
+                      type: integer
+                      minLength: 1
+                      example: 11
+                    firstName:
+                      type: string
+                      minLength: 1
+                      example: John
+                    lastName:
+                      type: string
+                      minLength: 1
+                      example: Smith
+                    email:
+                      type: string
+                      minLength: 1
+                      example: someone@gmail.com
+                    slackId:
+                      type: string
+                      minLength: 1
+                      example: ABC123
+        '401':
+          description: Not logged in
+        '403':
+          description: Not authorised as admin
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Register as a new user.
+      description: 'We have no robust way of validating emails yet, but perhaps we should create one later. The password needs to be stored as a hash. This should also store the date of registration.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: RegisterUserRequest
+              properties:
+                firstName:
+                  type: string
+                  minLength: 1
+                  example: John
+                lastName:
+                  type: string
+                  minLength: 1
+                  example: Smith
+                email:
+                  type: string
+                  minLength: 1
+                  example: someone@gmail.com
+                password:
+                  type: string
+                  minLength: 1
+                  example: lemmein
+              required:
+                - firstName
+                - lastName
+                - email
+                - password
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                properties:
+                  userId:
+                    type: integer
+                    minLength: 1
+                    example: 13
+        '400':
+          description: 'Bad Request (returns error code which can be used to identify which part of the  request was incorrect, EG 1 for email already exists)'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: integer
+                    minLength: 1
+                    example: 1
+        '500':
+          description: Internal Server Error
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Log in as an existing user.
+      description: |-
+        The response will contain a (unique) randomly-generated token that the client-side should store.
+
+        Whenever the client makes a request that requires authentication, it should provide that same token as the value of the `X-Authorization` header in the request.
+
+        The server will compare this to the value it has stored in the database to authenticate that request.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: LoginRequest
+              properties:
+                email:
+                  type: string
+                  minLength: 1
+                  example: someone@gmail.com
+                password:
+                  type: string
+                  minLength: 1
+                  example: lemmein
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  userId:
+                    type: integer
+                    minLength: 1
+                    example: 11
+                  token:
+                    type: string
+                    minLength: 1
+                    example: JSkIEpXk0b2jLgDpRuKAjGwCbFnDM0Tj
+        '401':
+          description: Unauthorized (Password was incorrect)
+        '404':
+          description: Not Found (Client side should display to user that the email was invalid)
+        '500':
+          description: Internal Server Error
+  /users/logout:
+    post:
+      tags:
+        - users
+      summary: Log out the currently authorised user.
+      description: Should remove the auth token for user in database
+      security:
+        - UserToken: []
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  '/users/{id}':
+    parameters:
+      - name: id
+        description: ID of the user.
+        in: path
+        required: true
+        schema:
+          type: integer
+          minLength: 1
+          example: 11
+    get:
+      tags:
+        - users
+      summary: Retrieve information about a user.
+      description: 'Depending on design choice, response may or may not include certain fields depending on authorisation. It may respond with 403 or 401 as well.'
+      security:
+        - {}
+        - UserToken: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  userId:
+                    type: integer
+                    minLength: 1
+                    example: 11
+                  firstName:
+                    type: string
+                    minLength: 1
+                    example: John
+                  lastName:
+                    type: string
+                    minLength: 1
+                    example: Smith
+                  email:
+                    type: string
+                    minLength: 1
+                    example: someone@gmail.com
+                  slackId:
+                    type: string
+                    minLength: 1
+                    example: ABC12345
+        '401':
+          description: Not logged in
+        '403':
+          description: Not authorised as an admin or the given user
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+    patch:
+      tags:
+        - users
+      summary: Change a user's details.
+      description: 'Only accessible by the user themselves. The email address must not already be in use. The password must not be an empty string. If the password is being changed, then the current password must also be provided. We may want a separate endpoint for changing a password.'
+      security:
+        - UserToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: ChangeUserDetailsRequest
+              properties:
+                firstName:
+                  type: string
+                  minLength: 1
+                  example: John
+                lastName:
+                  type: string
+                  minLength: 1
+                  example: Smith
+                email:
+                  type: string
+                  minLength: 1
+                  example: someoneElse@gmail.com
+                password:
+                  type: string
+                  minLength: 1
+                  example: newpassword
+                currentPassword:
+                  type: string
+                  minLength: 1
+                  example: lemmein
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+components:
+  securitySchemes:
+    UserToken:
+      type: apiKey
+      name: X-Authorization
+      in: header
+    isAdmin:
+      type: apiKey
+      name: isAdmin
+      in: header

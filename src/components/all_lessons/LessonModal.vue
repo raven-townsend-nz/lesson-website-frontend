@@ -347,6 +347,9 @@ export default {
       })
     },
 
+    /**
+     * This function is called externally to initialise the modal if we are creating a lesson.
+     */
     openCreate() {
       this.lessonId = null;
       this.modalTitle = 'Create Lesson';
@@ -365,6 +368,11 @@ export default {
       this.dialog = true;
     },
 
+    /**
+     * This function is called externally if we are opening the modal to edit a lesson.
+     * @param details details of the lesson including code, title, scope etc...
+     * @param lessonId the ID of the lesson
+     */
     openEdit(details, lessonId) {
       this.modalTitle = 'Edit Lesson';
       this.lessonId = lessonId;

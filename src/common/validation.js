@@ -33,11 +33,11 @@ const lessonRules = {
     ],
     yearLevelRules: [
         v => !!v || 'Year level is required',
-        v => (v && parseInt(v) && v <= 4 && v >=1 ) || 'Year level must be between 1 and 5',
+        v => (v && parseInt(v) && v <= 5 && v >=1 ) || 'Year level must be between 1 and 5',
     ],
     lessonNumberRules: [
         v => !!v || 'Lesson number is required',
-        v => (v && parseInt(v) && v > 0) || 'Lesson number must be a positive integer',
+        v => (v && parseInt(v) && v >= 0) || 'Lesson number must be a positive integer or zero',
     ],
     titleRules: [
         v => !!v || 'Title is required',

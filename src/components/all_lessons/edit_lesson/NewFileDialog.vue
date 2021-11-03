@@ -84,13 +84,11 @@ export default {
     },
 
     uploadFiles() {
-      try{
+      try {
         if (this.mode === "lesson") {
           for (let file of this.inputFiles) {
-            if(file.size <= 5e8) {//5e8 = 500mb
-              let formData = new FormData();
-              formData.append('file', file);
-              api.storageApi.uploadToArchive(formData)
+            if (file.size <= 5e8) {//5e8 = 500mb
+              api.storageApi.uploadToArchive(file, file.name, this.lessonId, this.group)
                   .then(() => {
                     this.inputFiles = [];
                     this.$emit('getFiles');
@@ -106,8 +104,7 @@ export default {
           }
         } else {
           for (let file of this.inputFiles) {
-            console.log(file.size);
-            if(file.size <= 5e8) {
+            if (file.size <= 5e8) {
               api.storageApi.uploadToAllocation(file, file.name, this.allocationId)
                   .then(() => {
                     this.inputFiles = [];

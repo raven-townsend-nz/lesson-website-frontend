@@ -7,12 +7,13 @@ import axiosInstance from "@/api/axios-instance";
  *
  */
 
-const uploadToArchive = function (formData) {
+const uploadToArchive = function (file, filename, lessonId, group) {
 
-    return axiosInstance.post(`/storage/directArchive`, formData,
+    return axiosInstance.post(`/storage/directArchive`, file,
         {
+            params: {filename: filename, lessonId: lessonId, group: group},
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': file.type
             }
         })
         .then(res => res);

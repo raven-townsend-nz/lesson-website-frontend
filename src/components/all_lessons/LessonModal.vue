@@ -378,7 +378,7 @@ export default {
       this.lessonId = lessonId;
       this.code = details.code || '';
       this.yearLevel = details.yearLevel;
-      this.lessonNumber = details.lessonNumber;
+      this.lessonNumber = details.lessonNumber.toString();
       this.title = details.title || '';
       this.time = details.time || '';
       this.whenToTeach = details.whenToTeach || '';

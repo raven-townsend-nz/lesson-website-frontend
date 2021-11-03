@@ -274,7 +274,7 @@
             </div>
           </v-card-text>
         </v-card>
-        <NewFile ref="newFileDialog" @getFiles="getFileNames"/>
+        <NewFile ref="newFileDialog" @getFiles="getFileNames(true)"/>
       </template>
     </v-dialog>
     </v-overlay>
@@ -519,16 +519,16 @@ export default {
       return date.toISOString().substring(0, 10);
     },
 
-    async getFileNames() {
+    async getFileNames(calledAfterFileUpload) {
       try {
-        const notSubmittedOrRejected = this.state === 'Rejected' || this.state === "Pending Approval";
+        const notSubmittedOrRejected = this.state === 'Rejected' || this.state === "Not Submitted";
         let res = await api.allocationHelpers.getAllocationFiles(this.allocationId)
         this.allocationFiles = res.data;
         for (let i = 0; i < this.allocationFiles.length; i++) {
           this.allocationFiles[i].index = i;
           this.openFolders.push(this.allocationFiles[i].name);
         }
-        if (notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
+        if (calledAfterFileUpload && notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
           this.$emit("updateAllocation", this.allocationId);
           this.state = "Pending Approval"
         }

@@ -280,7 +280,7 @@
             {{ snackbarMessage }}
           </v-snackbar>
         </v-card>
-        <NewFile ref="newFileDialog" @getFiles="getFileNames"/>
+        <NewFile ref="newFileDialog" @getFiles="getFileNames(true)"/>
       </template>
     </v-dialog>
     </v-overlay>
@@ -335,8 +335,8 @@ export default {
 
   methods: {
 
-    getFileNames() {
-      const notSubmittedOrRejected = this.state === 'Rejected' || this.state === "Pending Approval";
+    getFileNames(calledAfterFileUpload) {
+      const notSubmittedOrRejected = this.lessonData.state === 'Rejected' || this.lessonData.state === "Not Submitted";
       api.allocationHelpers.getAllocationFiles(this.allocationId)
       .then(res => {
         this.allocationFiles = res.data;
@@ -344,9 +344,9 @@ export default {
           this.allocationFiles[i].index = i;
           this.openAllocationFiles.push(this.allocationFiles[i].name);
         }
-        if (notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
+        if (calledAfterFileUpload && notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
           this.$emit(setStatusPending, this.allocationId);
-          this.lessonData.status = "Pending Approval";
+          this.lessonData.state = "Pending Approval";
         }
       }).catch(err => {
         console.error(err);

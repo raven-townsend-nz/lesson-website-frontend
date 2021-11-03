@@ -293,12 +293,12 @@ import storage_util from "@/common/storage_util";
 import NewFile from "@/components/all_lessons/edit_lesson/NewFileDialog";
 
 const noFilesRemaining = "noFilesRemaining";
-const firstFileUploaded = "firstFileUploaded";
+const setStatusPending = "setStatusPending";
 
 export default {
   name: "LessonAllocationModal",
   components: {NewFile},
-  emits: { noFilesRemaining, firstFileUploaded },
+  emits: { noFilesRemaining, setStatusPending },
   data() {
     return {
       isAdmin: storage_util.isAdmin(),
@@ -336,7 +336,7 @@ export default {
   methods: {
 
     getFileNames() {
-      let startedWithNoFiles = this.allocationFiles.length !== 0 && this.allocationFiles[0].children.length === 0;
+      const notSubmittedOrRejected = this.state === 'Rejected' || this.state === "Pending Approval";
       api.allocationHelpers.getAllocationFiles(this.allocationId)
       .then(res => {
         this.allocationFiles = res.data;
@@ -344,8 +344,9 @@ export default {
           this.allocationFiles[i].index = i;
           this.openAllocationFiles.push(this.allocationFiles[i].name);
         }
-        if (startedWithNoFiles && this.allocationFiles[0].children.length > 0) {
-          this.$emit(firstFileUploaded, this.allocationId);
+        if (notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
+          this.$emit(setStatusPending, this.allocationId);
+          this.lessonData.status = "Pending Approval";
         }
       }).catch(err => {
         console.error(err);

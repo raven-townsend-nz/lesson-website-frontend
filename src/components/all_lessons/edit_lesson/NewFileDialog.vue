@@ -42,6 +42,8 @@
 <script>
 import api from "@/api/api";
 
+const maxFileSize = 5e8; // 5e8 = 500mb
+
 export default {
   name: "NewFile",
   data() {
@@ -87,7 +89,7 @@ export default {
       try {
         if (this.mode === "lesson") {
           for (let file of this.inputFiles) {
-            if (file.size <= 5e8) {//5e8 = 500mb
+            if (file.size <= maxFileSize) {
               api.storageApi.uploadToArchive(file, file.name, this.lessonId, this.group)
                   .then(() => {
                     this.inputFiles = [];
@@ -104,7 +106,7 @@ export default {
           }
         } else {
           for (let file of this.inputFiles) {
-            if (file.size <= 5e8) {
+            if (file.size <= maxFileSize) {
               api.storageApi.uploadToAllocation(file, file.name, this.allocationId)
                   .then(() => {
                     this.inputFiles = [];

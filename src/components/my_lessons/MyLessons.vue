@@ -79,7 +79,7 @@
 
     </v-card>
     <ViewMyLessonModal ref="viewMyLessonModal"
-                       @firstFileUploaded="setStatusPending"
+                       @setStatusPending="setStatusPending"
                        @noFilesRemaining="setStatusNotSubmitted"/>
   </div>
 </template>

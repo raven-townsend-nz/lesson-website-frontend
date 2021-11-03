@@ -521,14 +521,14 @@ export default {
 
     async getFileNames() {
       try {
-        let startedWithNoFiles = this.allocationFiles.length !== 0 && this.allocationFiles[0].children.length === 0;
+        const notSubmittedOrRejected = this.state === 'Rejected' || this.state === "Pending Approval";
         let res = await api.allocationHelpers.getAllocationFiles(this.allocationId)
         this.allocationFiles = res.data;
         for (let i = 0; i < this.allocationFiles.length; i++) {
           this.allocationFiles[i].index = i;
           this.openFolders.push(this.allocationFiles[i].name);
         }
-        if (startedWithNoFiles && this.allocationFiles[0].children.length > 0) {
+        if (notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
           this.$emit("updateAllocation", this.allocationId);
           this.state = "Pending Approval"
         }

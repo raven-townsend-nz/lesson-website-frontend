@@ -537,18 +537,10 @@ export default {
       }
     },
 
-    downloadFile({id, name}) {
+    downloadFile({id}) {
       api.lessonHelpers.getFile(id)
         .then(res => {
           window.open(res.data.url);
-          console.log(name)
-          console.log(res.data)
-          // const blob = new Blob([res.data], { type: res.headers['content-type'] })
-          // const link = document.createElement('a')
-          // link.href = res.data.url;
-          // link.download = name
-          // link.click()
-          // URL.revokeObjectURL(link.href)
         })
     },
 

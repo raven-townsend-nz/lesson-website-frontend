@@ -64,40 +64,42 @@
 
             <br>
 
+            <div v-if="lessonData.lessonPlanRequired">
             <p style="margin-bottom: 0">Upload your lesson plan, handouts and other resources here:</p>
-            <v-treeview
-              :items="allocationFiles"
-              activatable
-              item-key="name"
-              :open="openAllocationFiles"
-              open-on-click
-              transition
-            >
-              <template v-slot:prepend="{ item, open }">
-                <v-icon v-if="!item.type" style="padding-inline: 0.3vw">
-                  {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
-                </v-icon>
-                <v-icon v-else style="padding-inline: 0.3vw">
-                  {{ fileIcons[item.type] }}
-                </v-icon>
-              </template>
-              <template v-slot:label="{ item }">
-                <div v-if="item.type" class="edit-lesson-file">
-                  <a
-                    href="#"
-                    v-text="item.name"
-                    v-on:click.stop="downloadFile(item)"
-                  ></a>
-                  <v-btn icon @click="deleteAllocationFile(item.id)"><v-icon>mdi-delete</v-icon></v-btn>
-                </div>
-                <div v-else class="edit-lesson-folder">
-                  <p class="folder-name"> {{ item.name }} {{ (item.children.length === 0) ? '(empty)' : '' }}</p>
-                  <v-btn icon @click.stop="openAddFileDialog()"><v-icon>mdi-plus</v-icon></v-btn>
-                </div>
+              <v-treeview
+                :items="allocationFiles"
+                activatable
+                item-key="name"
+                :open="openAllocationFiles"
+                open-on-click
+                transition
+              >
+                <template v-slot:prepend="{ item, open }">
+                  <v-icon v-if="!item.type" style="padding-inline: 0.3vw">
+                    {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+                  </v-icon>
+                  <v-icon v-else style="padding-inline: 0.3vw">
+                    {{ fileIcons[item.type] }}
+                  </v-icon>
+                </template>
+                <template v-slot:label="{ item }">
+                  <div v-if="item.type" class="edit-lesson-file">
+                    <a
+                      href="#"
+                      v-text="item.name"
+                      v-on:click.stop="downloadFile(item)"
+                    ></a>
+                    <v-btn icon @click="deleteAllocationFile(item.id)"><v-icon>mdi-delete</v-icon></v-btn>
+                  </div>
+                  <div v-else class="edit-lesson-folder">
+                    <p class="folder-name"> {{ item.name }} {{ (item.children.length === 0) ? '(empty)' : '' }}</p>
+                    <v-btn icon @click.stop="openAddFileDialog()"><v-icon>mdi-plus</v-icon></v-btn>
+                  </div>
 
-              </template>
-            </v-treeview>
-            <div v-if="lessonData.state === 'Rejected'">
+                </template>
+              </v-treeview>
+            </div>
+            <div v-if="lessonData.state === 'Rejected' || (lessonData.state === 'Pending' && lessonData.feedback)">
               <p style="margin-bottom: 5px">Feedback</p>
               <v-textarea
                 style="position: relative"
@@ -184,9 +186,9 @@
                   class="expansion-header-reduced-padding"
                   @mouseover="instructorNotesHover = true"
                   @mouseleave="instructorNotesHover = false">
-                  <p style="color: #1f4685; text-align: left; max-width: 130px">Instructor Notes</p>
+                  <p style="color: #1f4685; text-align: left; max-width: 130px">Instructors Notes</p>
                   <transition name="fade">
-                    <p v-if="instructorNotesHover"> - notes from previous instructors, you can add to this!</p>
+                    <p style="padding-left: 5px;" v-if="instructorNotesHover"> - notes from previous instructors, you can add to this!</p>
                   </transition>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>

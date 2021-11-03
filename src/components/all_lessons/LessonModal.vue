@@ -144,7 +144,9 @@
                                           @mouseover="trainingNotesHover = true"
                                           @mouseleave="trainingNotesHover = false">
                   <p class="accordion-header" style="max-width: 115px">Training Notes</p>
-                  <p v-if="trainingNotesHover"> - notes from the training office</p>
+                  <transition name="fade">
+                    <p v-if="trainingNotesHover"> - notes from the training office</p>
+                  </transition>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <v-textarea
@@ -164,8 +166,10 @@
                   class="expansion-header-reduced-padding"
                   @mouseover="instructorNotesHover = true"
                   @mouseleave="instructorNotesHover = false">
-                  <p class="accordion-header" style="max-width: 130px">Instructor Notes</p>
-                  <p v-if="instructorNotesHover"> - notes from previous instructors</p>
+                  <p class="accordion-header" style="max-width: 130px">Instructors Notes</p>
+                  <transition name="fade">
+                    <p style="padding-left: 5px;" v-if="instructorNotesHover"> - notes from previous instructors</p>
+                  </transition>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <v-textarea

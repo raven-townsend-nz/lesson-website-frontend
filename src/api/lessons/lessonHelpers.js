@@ -11,7 +11,7 @@ const getAllLessonsDropdownItems = function () {
 };
 
 const getFile = function (fileId) {
-    return axiosInstance.get(`/storage/${fileId}`, {responseType: 'blob'})
+    return axiosInstance.get(`/storage/${fileId}`)
         .then(res => res);
 };
 

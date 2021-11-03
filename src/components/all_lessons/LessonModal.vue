@@ -387,16 +387,11 @@ export default {
       this.dialog = false;
     },
 
-    downloadFile({id, name}) {
+    downloadFile({id}) {
       api.lessonHelpers.getFile(id)
-          .then(res => {
-            const blob = new Blob([res.data], { type: res.headers['content-type'] })
-            const link = document.createElement('a')
-            link.href = URL.createObjectURL(blob)
-            link.download = name
-            link.click()
-            URL.revokeObjectURL(link.href)
-          })
+        .then(res => {
+          window.open(res.data.url);
+        })
     },
 
     saveChanges(confirm) {

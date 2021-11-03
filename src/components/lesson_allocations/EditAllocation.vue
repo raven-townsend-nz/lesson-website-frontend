@@ -540,12 +540,15 @@ export default {
     downloadFile({id, name}) {
       api.lessonHelpers.getFile(id)
         .then(res => {
-          const blob = new Blob([res.data], { type: res.headers['content-type'] })
-          const link = document.createElement('a')
-          link.href = URL.createObjectURL(blob)
-          link.download = name
-          link.click()
-          URL.revokeObjectURL(link.href)
+          window.open(res.data.url);
+          console.log(name)
+          console.log(res.data)
+          // const blob = new Blob([res.data], { type: res.headers['content-type'] })
+          // const link = document.createElement('a')
+          // link.href = res.data.url;
+          // link.download = name
+          // link.click()
+          // URL.revokeObjectURL(link.href)
         })
     },
 

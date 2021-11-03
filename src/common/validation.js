@@ -37,7 +37,7 @@ const lessonRules = {
     ],
     lessonNumberRules: [
         v => !!v || 'Lesson number is required',
-        v => (v && parseInt(v) && v >= 0) || 'Lesson number must be a positive integer or zero',
+        v => (v && v >= 0) || 'Lesson number must be a positive integer or zero',
     ],
     titleRules: [
         v => !!v || 'Title is required',

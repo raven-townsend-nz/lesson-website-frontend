@@ -3,6 +3,23 @@
        data-app>
 
     <Navbar/>
+    <v-snackbar
+      v-model="snackbar"
+      color="red darken-2"
+    >
+      {{ snackbarMessage }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <EditProfileDialog ref="editProfile"
                        :edit-self="true"/>
 
@@ -42,6 +59,7 @@ export default {
     window.addEventListener(events.USER_NOT_DELETED, () => {this.setSnackbar("Failed to delete user")});
     window.addEventListener(events.ALLOCATION_NOT_DELETED, () => {this.setSnackbar("Failed to delete allocation")});
     window.addEventListener(events.LESSON_NOT_DELETED, () => {this.setSnackbar("Failed to delete lesson")});
+    window.addEventListener(events.SLACK_MSG_FAILED, () => {this.setSnackbar("Slack notifications failed. Please inform the relevant users in person")});
     window.addEventListener(events.OPEN_PROFILE_DIALOG, this.openEditProfile);
   },
 

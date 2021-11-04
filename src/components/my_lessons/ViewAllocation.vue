@@ -69,7 +69,7 @@
               <v-treeview
                 :items="allocationFiles"
                 activatable
-                item-key="name"
+                item-key="id"
                 :open="openAllocationFiles"
                 open-on-click
                 transition
@@ -224,7 +224,7 @@
             <v-treeview
                 :items="pastFiles"
                 activatable
-                item-key="name"
+                item-key="id"
                 open-on-click
                 transition
             >

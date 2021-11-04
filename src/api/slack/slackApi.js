@@ -1,4 +1,5 @@
 import slackAxiosInstance from "@/api/slack/slack-axios-instance";
+import events from "../../common/events";
 
 /**
  * slackMessages.s
@@ -13,7 +14,14 @@ const sendMessageTo = function (message, slackId) {
     const appendage = `channel=${slackId}&text=${message}&markdwn=true`;
 
     return slackAxiosInstance.post(`/chat.postMessage`, appendage)
-        .then(res => res);
+        .then(res => {
+            if (!res.data.ok) {
+                console.error("Slack request for change in status failed: " + res.data.error);
+                const event = new Event(events.SLACK_MSG_FAILED);
+                window.dispatchEvent(event);
+            }
+            return res;
+        });
 };
 
 // Sends the register message to slack id user. Doubles as a validation check for the slackId.

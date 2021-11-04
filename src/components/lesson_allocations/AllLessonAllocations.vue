@@ -279,7 +279,7 @@ export default {
       for (let instructor of allocation.instructors) {
         let fullName = instructor.firstName + ' ' + instructor.lastName;
         instructorFullNames.push(fullName);
-        allocation.instructorSlacks.push(instructor.slackId);
+        allocation.instructorSlacks.push({slackId: instructor.slackId, fullName: fullName});
       }
       let lessonDate = new Date(allocation.date);
       lessonDate = `${lessonDate.getDate()}/${lessonDate.getMonth() + 1}/${lessonDate.getFullYear()}`;
@@ -337,11 +337,11 @@ export default {
     },
 
     async sendRemovedNotifications(allocation) {
-      for (let slackId of allocation.instructorSlacks) {
+      for (let obj of allocation.instructorSlacks) {
         let message = "*Lesson Notification*\nYou are no longer teaching the following lesson: \n";
         message += `*${allocation.fullTitle}*\n`;
         try {
-          await api.slackApi.sendMessageTo(message, slackId);
+          await api.slackApi.sendMessageTo(message, obj.slackId, obj.fullName);
         } catch (err) {
           let message = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
           console.log(message);

@@ -96,14 +96,13 @@
 
 import validation from "@/common/validation";
 import api from "@/api/api";
-import storage_util from "@/common/storage_util";
 import events from "@/common/events";
 
 
 export default {
   name: "PasswordSection",
 
-  props: ["editSelf"], // set editSelf true if the user is editing their own profile
+  props: ["userIdToEdit", "editSelf"], // set editSelf true if the user is editing their own profile
 
   data: () => ({
     error: false,
@@ -120,7 +119,15 @@ export default {
     currentPasswordRules: [
       v => !!v || 'Current password is required'
     ],
+    currentDetails: null,
   }),
+
+  mounted() {
+    api.crudUsers.getUser(this.userIdToEdit)
+      .then(res => {
+        this.setUserDetails(res.data);
+      });
+  },
 
   computed: {
     passwordConfirmationRules() {
@@ -132,6 +139,12 @@ export default {
   },
 
   methods: {
+
+    setUserDetails(user) {
+      this.currentDetails = user;
+      this.currentDetails["id"] = this.userIdToEdit;
+    },
+
     showProfile() {
       const event = new Event(events.SWITCH_TO_PROFILE);
       window.dispatchEvent(event);
@@ -149,11 +162,11 @@ export default {
     updatePassword() {
       let isValid = this.validate();
       if (isValid) {
-        let payload = storage_util.getUserDetails();
+        let payload = this.currentDetails;
         payload.password = this.password;
         payload.currentPassword = this.currentPassword;
 
-        api.crudUsers.editUser(storage_util.getUserId(), payload)
+        api.crudUsers.editUser(this.currentDetails.id, payload)
           .then(() => {
             const event = new Event(events.PASSWORD_UPDATED);
             window.dispatchEvent(event);

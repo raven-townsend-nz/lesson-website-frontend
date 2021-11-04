@@ -25,6 +25,7 @@
                         :edit-self="editSelf"/>
         <PasswordSection v-if="changePassword"
                          ref="passwordSection"
+                         :user-id-to-edit="userIdToEdit"
                          :edit-self="editSelf"/>
       </transition>
     </v-dialog>

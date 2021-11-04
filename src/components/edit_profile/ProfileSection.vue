@@ -5,10 +5,10 @@
 
       <p class="centre">Edit Profile</p>
     </v-card-title>
-    <v-card-title v-if="loggedInAsDgaa" style="color: white">
+    <v-card-title v-if="loggedInAsDgaa && editSelf" style="color: white">
       Sorry, you cannot edit the DGAA account
     </v-card-title>
-    <v-card-text v-if="!loggedInAsDgaa">
+    <v-card-text v-else>
       <v-form
         ref="form"
         v-model="valid"

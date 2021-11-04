@@ -5,7 +5,7 @@
     <Navbar/>
     <v-snackbar
       v-model="snackbar"
-      color="red darken-2"
+      :color="snackbarColour"
     >
       {{ snackbarMessage }}
 
@@ -51,15 +51,16 @@ export default {
   data: () => ({
     snackbar: false,
     snackbarMessage: '',
+    snackbarColour: "red darken-2"
   }),
 
   mounted() {
-    window.addEventListener(events.PROFILE_UPDATED, () => {this.setSnackbar("Profile updated")});
-    window.addEventListener(events.PASSWORD_UPDATED, () => {this.setSnackbar("Password updated")});
-    window.addEventListener(events.USER_NOT_DELETED, () => {this.setSnackbar("Failed to delete user")});
-    window.addEventListener(events.ALLOCATION_NOT_DELETED, () => {this.setSnackbar("Failed to delete allocation")});
-    window.addEventListener(events.LESSON_NOT_DELETED, () => {this.setSnackbar("Failed to delete lesson")});
-    window.addEventListener(events.SLACK_MSG_FAILED, () => {this.setSnackbar("Slack notifications failed. Please inform the relevant users in person")});
+    window.addEventListener(events.PROFILE_UPDATED, () => {this.setSnackbar("Profile updated", "green")});
+    window.addEventListener(events.PASSWORD_UPDATED, () => {this.setSnackbar("Password updated", "green")});
+    window.addEventListener(events.USER_NOT_DELETED, () => {this.setSnackbar("Failed to delete user", "red darken-2")});
+    window.addEventListener(events.ALLOCATION_NOT_DELETED, () => {this.setSnackbar("Failed to delete allocation", "red darken-2")});
+    window.addEventListener(events.LESSON_NOT_DELETED, () => {this.setSnackbar("Failed to delete lesson", "red darken-2")});
+    window.addEventListener(events.SLACK_MSG_FAILED, () => {this.setSnackbar("Slack notifications failed. Please inform the relevant users in person", "red darken-2")});
     window.addEventListener(events.OPEN_PROFILE_DIALOG, this.openEditProfile);
   },
 
@@ -70,9 +71,10 @@ export default {
       this.$refs.editProfile.open(user);
     },
 
-    setSnackbar(msg) {
+    setSnackbar(msg, colour) {
       this.snackbarMessage = msg;
       this.snackbar = true;
+      this.snackbarColour = colour;
     }
   }
 }

@@ -166,7 +166,7 @@
             <v-treeview
               :items="allocationFiles"
               activatable
-              item-key="name"
+              item-key="id"
               open-on-click
               :open="openFolders"
               transition
@@ -274,7 +274,7 @@
             </div>
           </v-card-text>
         </v-card>
-        <NewFile ref="newFileDialog" @getFiles="getFileNames"/>
+        <NewFile ref="newFileDialog" @getFiles="getFileNames(true)"/>
       </template>
     </v-dialog>
     </v-overlay>
@@ -519,16 +519,16 @@ export default {
       return date.toISOString().substring(0, 10);
     },
 
-    async getFileNames() {
+    async getFileNames(calledAfterFileUpload) {
       try {
-        let startedWithNoFiles = this.allocationFiles.length !== 0 && this.allocationFiles[0].children.length === 0;
+        const notSubmittedOrRejected = this.state === 'Rejected' || this.state === "Not Submitted";
         let res = await api.allocationHelpers.getAllocationFiles(this.allocationId)
         this.allocationFiles = res.data;
         for (let i = 0; i < this.allocationFiles.length; i++) {
           this.allocationFiles[i].index = i;
           this.openFolders.push(this.allocationFiles[i].name);
         }
-        if (startedWithNoFiles && this.allocationFiles[0].children.length > 0) {
+        if (calledAfterFileUpload && notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
           this.$emit("updateAllocation", this.allocationId);
           this.state = "Pending Approval"
         }
@@ -717,7 +717,7 @@ export default {
           await api.slackApi.sendMessageTo(message, instructorSlack);
         } catch (err) {
           let message = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
-          console.log(message);
+          console.error(message);
         }
       }
     },
@@ -742,7 +742,6 @@ export default {
       let addedIds = newIds.filter(x => !initialIds.includes(x));
       let removedIds = initialIds.filter(x => !newIds.includes(x));
       let remainingIds = newIds.filter(x => initialIds.includes(x)); //intersection
-      console.log(remainingIds);
       await this.addedNotification(addedIds);
       await this.removedNotification(removedIds);
       await this.changedNotification(remainingIds);
@@ -814,9 +813,36 @@ export default {
       this.editingDate = !this.editingDate;
     },
 
+    async sendStateChangeSlackMessage(state) {
+      for (let i = 0; i < this.initiallySelectedUsers.length; i++) {
+        if (this.initiallySelectedUsers[i].value !== undefined) {
+          this.initiallySelectedUsers[i] = this.initiallySelectedUsers[i].value;
+        }
+      }
+
+      let message = `*Lesson Notification*\nYour submission for *${this.fullTitle}* `;
+      if (state === "Rejected") {
+        message += `has been rejected. Please login to the <https://lessons.17squadronatc.com/|lesson website> for more details`;
+      } else if (state === "Approved") {
+        message += "has been approved";
+      } else if (state === "Pending Approval") {
+        message += "has been reset to 'Pending Approval'";
+      }
+
+      for (let instructor of this.initiallySelectedUsers) {
+        try {
+          await api.slackApi.sendMessageTo(message, instructor.slackId);
+        } catch (err) {
+          let errorMessage = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
+          console.error(errorMessage);
+        }
+      }
+    },
+
     async changeState(state) {
       try {
         await api.crudAllocations.updateState(this.allocationId, state);
+        await this.sendStateChangeSlackMessage(state);
         this.state = state;
         this.$emit('updateAllocation', this.allocationId, this.state);
       } catch (err) {

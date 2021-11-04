@@ -79,7 +79,7 @@ const allocationRules = {
         v => v.length > 0 || 'At least one instructor is required',
     ],
     feedbackRules: [
-        v => v.length <= 1000 || 'Max 1000 characters',
+        v => !v || v.length <= 1000 || 'Max 1000 characters',
     ]
 }
 

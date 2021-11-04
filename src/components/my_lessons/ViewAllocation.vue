@@ -69,7 +69,7 @@
               <v-treeview
                 :items="allocationFiles"
                 activatable
-                item-key="name"
+                item-key="id"
                 :open="openAllocationFiles"
                 open-on-click
                 transition
@@ -224,7 +224,7 @@
             <v-treeview
                 :items="pastFiles"
                 activatable
-                item-key="name"
+                item-key="id"
                 open-on-click
                 transition
             >
@@ -280,7 +280,7 @@
             {{ snackbarMessage }}
           </v-snackbar>
         </v-card>
-        <NewFile ref="newFileDialog" @getFiles="getFileNames"/>
+        <NewFile ref="newFileDialog" @getFiles="getFileNames(true)"/>
       </template>
     </v-dialog>
     </v-overlay>
@@ -293,12 +293,12 @@ import storage_util from "@/common/storage_util";
 import NewFile from "@/components/all_lessons/edit_lesson/NewFileDialog";
 
 const noFilesRemaining = "noFilesRemaining";
-const firstFileUploaded = "firstFileUploaded";
+const setStatusPending = "setStatusPending";
 
 export default {
   name: "LessonAllocationModal",
   components: {NewFile},
-  emits: { noFilesRemaining, firstFileUploaded },
+  emits: { noFilesRemaining, setStatusPending },
   data() {
     return {
       isAdmin: storage_util.isAdmin(),
@@ -335,8 +335,8 @@ export default {
 
   methods: {
 
-    getFileNames() {
-      let startedWithNoFiles = this.allocationFiles.length !== 0 && this.allocationFiles[0].children.length === 0;
+    getFileNames(calledAfterFileUpload) {
+      const notSubmittedOrRejected = this.lessonData.state === 'Rejected' || this.lessonData.state === "Not Submitted";
       api.allocationHelpers.getAllocationFiles(this.allocationId)
       .then(res => {
         this.allocationFiles = res.data;
@@ -344,8 +344,9 @@ export default {
           this.allocationFiles[i].index = i;
           this.openAllocationFiles.push(this.allocationFiles[i].name);
         }
-        if (startedWithNoFiles && this.allocationFiles[0].children.length > 0) {
-          this.$emit(firstFileUploaded, this.allocationId);
+        if (calledAfterFileUpload && notSubmittedOrRejected && this.allocationFiles[0].children.length > 0) {
+          this.$emit(setStatusPending, this.allocationId);
+          this.lessonData.state = "Pending Approval";
         }
       }).catch(err => {
         console.error(err);

@@ -133,7 +133,7 @@
                 v-model="tree"
                 :items="files"
                 activatable
-                item-key="name"
+                item-key="id"
                 open-on-click
                 transition
             >

@@ -486,10 +486,10 @@ export default {
 
       message += `\nPlease login to the <https://lessons.17squadronatc.com/|lesson website> for more details`;
 
-      for (let user of this.selectedUsers){
+      for (let user of this.selectedUsers) {
         try {
           let personalisedMessage = message.slice(0, insertPosition) + this.getNameString(user.id) + message.slice(insertPosition);
-          await api.slackApi.sendMessageTo(personalisedMessage, user.slackId);
+          await api.slackApi.sendMessageTo(personalisedMessage, user.slackId, user.firstName + " " + user.lastName);
         } catch (err) {
           let message = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
           this.showError(message);

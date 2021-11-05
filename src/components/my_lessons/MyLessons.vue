@@ -177,9 +177,7 @@ export default {
       let allocationId = allocation.id;
       allocation.loading = true;
       this.$refs.viewMyLessonModal.open(allocationId);
-      setTimeout(() => {
-        allocation.loading = false;
-      }, 10);
+      allocation.loading = false;
     },
 
     getColor(state) {

@@ -333,9 +333,7 @@ export default {
       let allocationId = allocation.id;
       allocation.loading = true;
       this.$refs.editAllocationDialog.open(allocationId);
-      setTimeout(() => {
-        allocation.loading = false;
-      }, 10);
+      allocation.loading = false;
     },
 
     deleteAllocation(allocation) {

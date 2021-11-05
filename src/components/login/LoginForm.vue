@@ -42,6 +42,7 @@
 
       <v-btn
           :disabled="!valid"
+          :loading="signInButtonLoading"
           class="mr-4"
           @click="submit"
       >
@@ -76,6 +77,7 @@ export default {
     error: false,
     valid: false,
     value: true,
+    signInButtonLoading: false,
     email: '',
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -92,6 +94,7 @@ export default {
     },
 
     submit() {
+      this.signInButtonLoading = true;
       let isValid = this.validate();
       if (isValid) {
         let payload = {
@@ -110,6 +113,7 @@ export default {
           }
         })
       }
+      this.signInButtonLoading = false;
     },
 
     showRegister() {

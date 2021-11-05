@@ -10,7 +10,7 @@
         <v-toolbar
             color="primary"
             dark
-            src="../../assets/login-background.webp"
+            src="../../assets/login-background.png"
             class="modal-heading"
         >
           <v-toolbar-title class="view-lesson-title">

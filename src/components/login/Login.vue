@@ -2,7 +2,7 @@
   <div class="full-wrapper">
     <div class="form-wrapper">
       <div class="left-col">
-        <img src="../../assets/logo.webp" class="login-logo"/>
+        <v-img lazy-src="../../assets/blurred-logo.png" src="../../assets/logo.png" class="login-logo"/>
       </div>
       <div class="right-col">
         <div class="form">
@@ -13,12 +13,15 @@
         </div>
       </div>
     </div>
+    <v-img lazy-src="../../assets/blurred-login-background.png" src="../../assets/login-background.png" class="login-background"/>
+
   </div>
 </template>
 
 <script>
 import LoginForm from "@/components/login/LoginForm";
 import RegisterForm from "@/components/login/RegisterForm";
+
 export default {
   name: "Login",
   components: {RegisterForm, LoginForm},

@@ -11,7 +11,7 @@
           <v-toolbar
               color="primary"
               dark
-              src="../../assets/login-background.webp"
+              src="../../assets/login-background.png"
           >
             <v-toolbar-title class="view-lesson-title">
               View Lesson

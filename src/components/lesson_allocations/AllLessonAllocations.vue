@@ -129,7 +129,8 @@
               rounded
               class="lesson-btn"
               color="#1f4685"
-              v-on:click="openAllocation(item.id)"
+              :loading="item.loading"
+              v-on:click="openAllocation(item)"
           >
             {{ item.fullTitle }}
           </v-btn>
@@ -307,6 +308,7 @@ export default {
 
       allocation.dueDate = dueDate;
       allocation.lessonDate = lessonDate;
+      allocation.loading = false;
       allocation.fullTitle = `${allocation.code} ${allocation.yearLevel}.${allocation.lessonNumber} ${allocation.title}`;
     },
 
@@ -327,8 +329,13 @@ export default {
       this.$refs.createDialog.open();
     },
 
-    openAllocation(allocationId) {
+    openAllocation(allocation) {
+      let allocationId = allocation.id;
+      allocation.loading = true;
       this.$refs.editAllocationDialog.open(allocationId);
+      setTimeout(() => {
+        allocation.loading = false;
+      }, 10);
     },
 
     deleteAllocation(allocation) {

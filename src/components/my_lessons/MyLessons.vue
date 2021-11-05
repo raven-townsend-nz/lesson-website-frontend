@@ -56,7 +56,8 @@
               rounded
               class="lesson-btn"
               color="#1f4685"
-              v-on:click="openAllocation(item.id)"
+              :loading="item.loading"
+              v-on:click="openAllocation(item)"
           >
             {{ item.fullTitle }}
           </v-btn>
@@ -148,7 +149,7 @@ export default {
             dueDate = "N/A";
           }
 
-          if(instructorFullNames.length === 2){
+          if (instructorFullNames.length === 2){
             allocation.instructors = instructorFullNames.join(" and ");
           } else if(instructorFullNames.length > 1) {
             const lastInstructor = instructorFullNames.pop();
@@ -162,7 +163,7 @@ export default {
           allocation.dueDate = dueDate;
           allocation.lessonDate = lessonDate;
           allocation.fullTitle = `${allocation.code} ${allocation.yearLevel}.${allocation.lessonNumber} ${allocation.title}`;
-
+          allocation.loading = false;
           this.myLessons.push(allocation);
 
 
@@ -172,8 +173,13 @@ export default {
       })
     },
 
-    openAllocation(allocationId) {
+    openAllocation(allocation) {
+      let allocationId = allocation.id;
+      allocation.loading = true;
       this.$refs.viewMyLessonModal.open(allocationId);
+      setTimeout(() => {
+        allocation.loading = false;
+      }, 10);
     },
 
     getColor(state) {

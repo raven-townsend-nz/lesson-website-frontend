@@ -46,6 +46,6 @@ body::-webkit-scrollbar {
 ::-webkit-scrollbar-thumb
 {
   border-radius: 10px;
-  background-image: url("assets/login-background.webp");
+  background-image: url("assets/login-background.png");
 }
 </style>

@@ -7,7 +7,7 @@
       <v-navigation-drawer
           permanent
           :mini-variant.sync="mini"
-          src="../../assets/login-background.webp"
+          src="../../assets/login-background.png"
           dark
       >
 <!--        HEADING (IMG/BURGER)-->
@@ -19,7 +19,7 @@
             </v-list-item>
           </div>
           <v-list-item class="px-2" style="padding-inline: 0.5vw">
-              <v-img src="../../assets/logo-unshaded.webp" ></v-img>
+              <v-img src="../../assets/logo-unshaded.png" ></v-img>
             <div class="back-burger">
               <v-icon v-if="!mini" v-on:click="mini = true">mdi-backburger</v-icon>
             </div>

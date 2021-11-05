@@ -214,7 +214,7 @@
 
           <br>
           <v-divider></v-divider>
-          <div class="view-lesson-modal-h2">PAST LESSONS</div>
+          <div class="view-lesson-modal-h2">{{lessonPlanRequired ? "PAST LESSONS" : "RESOURCES"}}</div>
 
           <v-treeview
               v-model="tree"

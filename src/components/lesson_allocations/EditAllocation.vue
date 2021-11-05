@@ -664,7 +664,9 @@ export default {
       }
 
       for (let instructorId of addedIds) {
-        let instructorSlack = this.selectedUsers.find(x => x.id === instructorId).slackId;
+        let instructor = this.selectedUsers.find(x => x.id === instructorId);
+        let instructorSlack = instructor.slackId;
+        let fullName = instructor.firstName + " " + instructor.lastName;
         let otherInstructorNames = this.getOtherInstructorNames(instructorId);
         let message = "*Lesson Notification*\nYou have been added to the following lesson: \n\n";
         message += `*${this.fullTitle}* on *${this.formattedDateString}*\n`;
@@ -674,7 +676,7 @@ export default {
         message += `\nPlease login to the <https://lessons.17squadronatc.com/|lesson website> for more details`;
 
         try{
-          await api.slackApi.sendMessageTo(message, instructorSlack);
+          await api.slackApi.sendMessageTo(message, instructorSlack, fullName);
         } catch (err) {
           let message = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
           console.log(message);
@@ -689,11 +691,13 @@ export default {
         }
       }
       for (let instructorId of removedIds) {
-        let instructorSlack = this.initiallySelectedUsers.find(x => x.id === instructorId).slackId;
+        let instructor = this.initiallySelectedUsers.find(x => x.id === instructorId);
+        let instructorSlack = instructor.slackId;
+        let fullName = instructor.firstName + " " + instructor.lastName;
         let message = "*Lesson Notification*\nYou are no longer teaching the following lesson: \n";
         message += `*${this.fullTitle}* on *${this.formattedDateString}*\n`;
         try {
-          await api.slackApi.sendMessageTo(message, instructorSlack);
+          await api.slackApi.sendMessageTo(message, instructorSlack, fullName);
         } catch (err) {
           let message = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
           console.log(message);
@@ -708,13 +712,15 @@ export default {
         }
       }
       for (let instructorId of remainingIds) {
-        let instructorSlack = this.selectedUsers.find(x => x.id === instructorId).slackId;
+        let instructor = this.selectedUsers.find(x => x.id === instructorId);
+        let instructorSlack = instructor.slackId;
+        let fullName = instructor.firstName + " " + instructor.lastName;
         let message = `*Lesson Notification*\nSome of the details have been updated for your lesson *${this.fullTitle}* `
         + `on *${this.formattedDateString}*\n`;
         message += `Please login to the <https://lessons.17squadronatc.com/|lesson website> for more details`;
 
         try {
-          await api.slackApi.sendMessageTo(message, instructorSlack);
+          await api.slackApi.sendMessageTo(message, instructorSlack, fullName);
         } catch (err) {
           let message = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
           console.error(message);
@@ -831,7 +837,7 @@ export default {
 
       for (let instructor of this.initiallySelectedUsers) {
         try {
-          await api.slackApi.sendMessageTo(message, instructor.slackId);
+          await api.slackApi.sendMessageTo(message, instructor.slackId, instructor.firstName + " " + instructor.lastName);
         } catch (err) {
           let errorMessage = err.response.data.length > 0 ? err.response.data : "Unable to notify instructors";
           console.error(errorMessage);

@@ -205,7 +205,7 @@ export default {
           })
         }).then(res => {
           storage_util.setUser(res.data.userId, res.data.token, res.data);
-          return api.slackApi.registerMessage(this.slackId);
+          return api.slackApi.registerMessage(this.slackId, this.firstName + " " + this.lastName);
         }).then(() => {
           this.$router.push({ path: '/home'}); // finally push to home page
         }).catch(err => {

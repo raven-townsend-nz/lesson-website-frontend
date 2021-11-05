@@ -36,7 +36,8 @@
                   rounded
                   class="lesson-btn"
                   color="#1f4685"
-                  v-on:click="openLesson(item.id)"
+                  :loading="item.loading"
+                  v-on:click="openLesson(item)"
               >
                 {{ item.fullTitle }}
                 <v-icon v-if="hover && isAdmin" style="margin-inline-start: 1vw">mdi-pencil</v-icon>
@@ -145,6 +146,7 @@ export default {
         for (let i = 0; i < data.length; i ++) {
           const raw = data[i];
           data[i].fullTitle = `${raw.code} ${raw.yearLevel}.${raw.lessonNumber} ${raw.title}`;
+          data[i].loading = false;
         }
         data.sort((a, b) => (a.code).localeCompare(b.code) || a.yearLevel - b.yearLevel  ||  a.lessonNumber - b.lessonNumber)
         this.lessonsAll = data;
@@ -213,7 +215,9 @@ export default {
 
     },
 
-    openLesson(lessonId) {
+    openLesson(lesson) {
+      let lessonId = lesson.id;
+      lesson.loading = true;
       api.crudLessons.getOneLesson(lessonId)
           .then(res => {
             if (this.isAdmin) {
@@ -221,8 +225,10 @@ export default {
             } else {
               this.$refs.viewLessonModal.open(res.data, lessonId);
             }
+            lesson.loading = false;
           }).catch(err => {
         console.error(err);
+        lesson.loading = false;
       });
 
     },

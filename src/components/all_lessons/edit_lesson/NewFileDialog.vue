@@ -4,7 +4,7 @@
       <v-card-title style="background-color: #1f4685; color: white; padding-block: 1vh">
         <span class="text-h5">Upload Files</span>
         <v-spacer></v-spacer>
-        <v-btn class="modal-close-button" icon dark v-on:click="newFileDialog = false"><v-icon>mdi-close</v-icon></v-btn>
+        <v-btn class="modal-close-button" icon dark v-on:click="close()"><v-icon>mdi-close</v-icon></v-btn>
       </v-card-title>
       <v-card-text>
         <v-file-input
@@ -21,10 +21,11 @@
       <v-card-actions style="justify-content: center">
         <v-btn
             text
+            :loading="uploadButtonLoading"
             style="background:#1f4685; color: white;"
             @click="uploadFiles()"
         >
-          <v-icon left>mdi-upload</v-icon>
+          <v-icon v-if="!uploadButtonLoading" left>mdi-upload</v-icon>
           Upload
         </v-btn>
       </v-card-actions>
@@ -54,6 +55,7 @@ export default {
       lessonId: null,
       allocationId: null,
       mode: null,
+      uploadButtonLoading: false,
 
       error: false,
       errorMessage: "Something went wrong",
@@ -73,6 +75,11 @@ export default {
       this.newFileDialog = true;
     },
 
+    close() {
+      this.newFileDialog = false;
+      this.uploadButtonLoading = false;
+    },
+
     uploadErrorMessage(err) {
       if(err.response.data.length > 0) {
         this.errorMessage = err.response.data;
@@ -86,6 +93,9 @@ export default {
     },
 
     uploadFiles() {
+      if (this.inputFiles.length > 0) {
+        this.uploadButtonLoading = true;
+      }
       try {
         if (this.mode === "lesson") {
           for (let file of this.inputFiles) {
@@ -95,8 +105,10 @@ export default {
                     this.inputFiles = [];
                     this.$emit('getFiles');
                     this.newFileDialog = false;
+                    this.uploadButtonLoading = false;
                   });
             } else {
+              this.uploadButtonLoading = false;
               this.errorMessage = "File too large. Max file size is 500mb";
               this.error = true;
               setTimeout(() => {
@@ -112,8 +124,10 @@ export default {
                     this.inputFiles = [];
                     this.$emit('getFiles');
                     this.newFileDialog = false;
+                    this.uploadButtonLoading = false;
                   });
             } else {
+              this.uploadButtonLoading = false;
               this.errorMessage = "File too large. Max file size is 500mb";
               this.error = true;
               setTimeout(() => {
@@ -124,6 +138,7 @@ export default {
         }
       } catch (err) {
         this.uploadErrorMessage(err);
+        this.uploadButtonLoading = false;
       }
     }
   }

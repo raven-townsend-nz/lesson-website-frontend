@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from "../components/login/Login";
-import Home from '../components/home/Home';
-import NotFound from "../components/404/NotFound";
-import ResetPassword from "@/components/forgot_password/ResetPassword";
-import ForgottenPassword from "@/components/forgot_password/ForgottenPassword";
+// import Login from "../components/login/Login";
+// import Home from '../components/home/Home';
+// import NotFound from "../components/404/NotFound";
+// import ResetPassword from "@/components/forgot_password/ResetPassword";
+// import ForgottenPassword from "@/components/forgot_password/ForgottenPassword";
+import Maintenance from "../components/Maintenance";
 
 import api from "../api/api";
 import storage_util from "../common/storage_util";
@@ -13,24 +14,26 @@ import storage_util from "../common/storage_util";
 Vue.use(VueRouter)
 
 const routes = [
-    { name: "login", path: '/login', component: Login },
-    { name: 'resetPassword', path: '/reset-password', component: ResetPassword },
-    { name: "forgottenPassword", path: '/forgotten-password', component: ForgottenPassword },
-
-    { name: "allLessons", path:'/home/all-lessons', component: Home, meta: {requiresLogin: true}, props: {page: 'allLessons'}},
-    { name: "myLessons", path:'/home/my-lessons', component: Home, meta: {requiresLogin: true}, props: {page: 'myLessons'}},
-    { name: "lessonAllocations", path:'/home/lesson-allocations', component: Home, meta: {requiresAdmin: true}, props: {page: 'lessonAllocations'}},
-    { name: "manageUsers", path:'/home/manage-users', component: Home, meta: {requiresAdmin: true}, props: {page: 'manageUsers'}},
-    { name: "trainingProgram", path:'/home/training-program', component: Home, props: {page: 'trainingProgram'}},
-
-    { name: "home", path: '/home', redirect: { name: 'myLessons'} },
-    { name: "default", path: '/', redirect: { name: 'myLessons'} },
-
-    { name: "notFound", path: '/not-found', component: NotFound },
-
-
-    // Keep at end
-    { path: "*", redirect: { name: 'notFound' } },
+    // { name: "login", path: '/login', component: Login },
+    // { name: 'resetPassword', path: '/reset-password', component: ResetPassword },
+    // { name: "forgottenPassword", path: '/forgotten-password', component: ForgottenPassword },
+    //
+    // { name: "allLessons", path:'/home/all-lessons', component: Home, meta: {requiresLogin: true}, props: {page: 'allLessons'}},
+    // { name: "myLessons", path:'/home/my-lessons', component: Home, meta: {requiresLogin: true}, props: {page: 'myLessons'}},
+    // { name: "lessonAllocations", path:'/home/lesson-allocations', component: Home, meta: {requiresAdmin: true}, props: {page: 'lessonAllocations'}},
+    // { name: "manageUsers", path:'/home/manage-users', component: Home, meta: {requiresAdmin: true}, props: {page: 'manageUsers'}},
+    // { name: "trainingProgram", path:'/home/training-program', component: Home, props: {page: 'trainingProgram'}},
+    //
+    // { name: "home", path: '/home', redirect: { name: 'myLessons'} },
+    // { name: "default", path: '/', redirect: { name: 'myLessons'} },
+    //
+    // { name: "notFound", path: '/not-found', component: NotFound },
+    //
+    //
+    // // Keep at end
+    // { path: "*", redirect: { name: 'notFound' } },
+    { name: "maintenance", path: '/maintenance', component: Maintenance },
+    { path: "*", redirect: { name: 'maintenance' } }
 
 
 ]

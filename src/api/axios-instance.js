@@ -11,7 +11,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_ADD;
 
 const axiosInstance = axios.create({
     baseURL: SERVER_URL,
-    timeout: 20000
+    timeout: 60000
 });
 
 axiosInstance.interceptors.request.use(
